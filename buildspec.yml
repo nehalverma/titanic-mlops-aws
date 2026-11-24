@@ -1,0 +1,12 @@
+version: 0.2
+
+phases:
+  build:
+    commands:
+      - echo "Starting SageMaker Pipeline..."
+      - |
+        if [ -z "$SAGEMAKER_PIPELINE_NAME" ]; then
+          echo "SAGEMAKER_PIPELINE_NAME is not configured"
+          exit 1
+        fi
+      - aws sagemaker start-pipeline-execution --pipeline-name "$SAGEMAKER_PIPELINE_NAME" --pipeline-execution-display-name "GitHub-CI-CD-Run" --region us-east-1
